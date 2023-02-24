@@ -26,3 +26,9 @@ export default function (client = configureDefaultClient()) {
   // ... do something cool ...
 }
 ```
+
+You can also provide a default value to use if the key is not defined in `process.env`:
+
+```ts
+getEnv("BASE_URL", { default: "http://localhost:3000" });
+```
