@@ -25,6 +25,8 @@ jobs:
         uses: changesets/action@v1
         with:
           publish: pnpm run release
+          commit: "chore: update version and changelog"
+          title: "chore: update version and changelog"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
