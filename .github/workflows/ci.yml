@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v2
         with:
           version: 7
@@ -24,3 +26,4 @@ jobs:
       - run: pnpm run lint
       - run: pnpm run build
       - run: pnpm run test
+      - run: pnpm changeset status --since=origin/main
