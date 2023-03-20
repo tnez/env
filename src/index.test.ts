@@ -1,4 +1,4 @@
-import { describe, expect, it, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, test } from "vitest";
 import { getEnv } from "./index";
 
 describe("getEnv", () => {
@@ -26,20 +26,49 @@ describe("getEnv", () => {
     });
   });
 
-  describe("when serverOnly option", () => {
+  describe("serverOnly option", () => {
     describe("is set to true", () => {
+      const whenExecuted = () => getEnv("NODE_ENV", { serverOnly: true });
+
       describe("and we are running in a server environment", () => {
-        it.todo("should not throw");
+        it("should not throw", () => {
+          expect(whenExecuted).not.toThrow();
+        });
       });
 
       describe("and we are running in a client environment", () => {
-        it.todo("should throw");
+        beforeEach(() => {
+          globalThis.window = {} as any;
+        });
+
+        afterEach(() => {
+          globalThis.window = undefined as any;
+        });
+
+        it("should throw expected error", () => {
+          const expectedError = new Error(
+            "Attempted to access server-only variable NODE_ENV in client context"
+          );
+          expect(whenExecuted).toThrowError(expectedError);
+        });
       });
     });
 
     describe("is not set", () => {
+      const whenExecuted = () => getEnv("NODE_ENV");
+
       describe("and we are running in a client enironment", () => {
-        it.todo("should not throw");
+        beforeEach(() => {
+          globalThis.window = {} as any;
+        });
+
+        afterEach(() => {
+          globalThis.window = undefined as any;
+        });
+
+        it("should not throw", () => {
+          expect(whenExecuted).not.toThrow();
+        });
       });
     });
   });
