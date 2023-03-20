@@ -10,7 +10,8 @@
     "dev": "vitest",
     "lint": "tsc",
     "release": "pnpm build && changeset publish",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [
     "environment",
