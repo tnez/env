@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, test } from "vitest";
 import { getEnv } from "./index";
 
 describe("getEnv", () => {
@@ -22,6 +22,24 @@ describe("getEnv", () => {
       it("should return the provided default value", () => {
         const result = getEnv("NON_EXISTING", { default: "default-value" });
         expect(result).toBe("default-value");
+      });
+    });
+  });
+
+  describe("when serverOnly option", () => {
+    describe("is set to true", () => {
+      describe("and we are running in a server environment", () => {
+        it.todo("should not throw");
+      });
+
+      describe("and we are running in a client environment", () => {
+        it.todo("should throw");
+      });
+    });
+
+    describe("is not set", () => {
+      describe("and we are running in a client enironment", () => {
+        it.todo("should not throw");
       });
     });
   });
